@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  @apply bg-background text-foreground;
 }
 
 @layer utilities {
@@ -12,25 +12,49 @@ body {
   }
 }
 
+.text-heading {
+  font-size: 2.25rem;
+  font-weight: 400;
+  @apply font-neuemontreal text-foreground;
+}
+
+.text-regular {
+  font-size: 1rem;
+  font-weight: 400;
+  @apply font-neuemontreal text-secondary-foreground;
+}
+
+.text-card {
+  font-size: 1rem;
+  font-weight: 500;
+  @apply font-neuemontreal text-card-foreground;
+}
+
+.text-button {
+  font-size: 1rem;
+  font-weight: 500;
+  @apply font-neuemontreal text-background;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
+    --foreground: 175 100% 2%;
+    --card: 216 33% 97%;
+    --card-foreground: 176, 100%, 6%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
     --primary: 0 0% 9%;
     --primary-foreground: 0 0% 98%;
     --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
+    --secondary-foreground: 216 3% 29%;
     --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
+    --muted-foreground: 220 3% 79%;
     --accent: 0 0% 96.1%;
     --accent-foreground: 0 0% 9%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
+    --border: 216 10% 91%;
     --input: 0 0% 89.8%;
     --ring: 0 0% 3.9%;
     --chart-1: 12 76% 61%;
@@ -38,15 +62,7 @@ body {
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+    --cta: 175 100% 12%;
     --radius: 0.5rem;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
   }
 }

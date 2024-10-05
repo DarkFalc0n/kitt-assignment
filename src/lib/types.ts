@@ -15,8 +15,15 @@ interface PageProps {
 }
 export type TPage = FC<Partial<PageProps>>;
 
-export type TUser = {
-  id: string;
+export type TAirPort = {
   name: string;
-  email: string;
+  code: string;
+  city: string;
+  country: string;
+};
+export type TJourney = {
+  from: TAirPort;
+  to: TAirPort;
+  startDate: Date;
+  endDate: Date;
 };
