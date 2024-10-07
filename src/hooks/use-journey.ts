@@ -1,9 +1,8 @@
 import { useJourneyStore } from '@/store/journey';
-import { TJourney } from '@/lib/types';
 
 const useJourney = () => {
-  const { journey, setJourney } = useJourneyStore();
-  return { journey, setJourney };
+  const { journey, setJourney, swapAirports } = useJourneyStore();
+  return { journey, setJourney, swapAirports };
 };
 
 export { useJourney };

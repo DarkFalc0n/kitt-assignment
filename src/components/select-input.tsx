@@ -7,7 +7,6 @@ import {
   SelectValue
 } from '@/components/ui/select';
 import { TAirPort } from '@/lib/types';
-import { getAirportFromCode } from '@/lib/utils';
 import React, { ReactNode } from 'react';
 
 type SelectInputProps = {
@@ -21,18 +20,15 @@ type SelectInputProps = {
 };
 
 const SelectInput = React.forwardRef<HTMLAllCollection, SelectInputProps>(
-  (
-    {
-      placeholderIcon,
-      placeholderText,
-      valueLabel,
-      value,
-      options,
-      onValueChange,
-      name = ''
-    },
-    ref
-  ) => (
+  ({
+    placeholderIcon,
+    placeholderText,
+    valueLabel,
+    value,
+    options,
+    onValueChange,
+    name = ''
+  }) => (
     <Select onValueChange={onValueChange} name={name}>
       <SelectTrigger className="h-16 w-[267.5px]">
         <SelectValue
@@ -70,5 +66,6 @@ const SelectInput = React.forwardRef<HTMLAllCollection, SelectInputProps>(
     </Select>
   )
 );
+SelectInput.displayName = 'SelectInput';
 
 export default SelectInput;

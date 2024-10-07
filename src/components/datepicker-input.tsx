@@ -32,7 +32,7 @@ const DatePickerInput: ExtendedFC<{
           <Button
             variant={'outline'}
             className={cn(
-              'w-[240px] justify-start p-3',
+              'h-full min-w-[176px] justify-start p-3',
               value && 'text-muted-foreground',
               className
             )}
