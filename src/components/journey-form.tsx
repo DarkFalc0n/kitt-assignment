@@ -1,15 +1,16 @@
 'use client';
 import { Button } from './ui/button';
-import { ArrowLeftRight, LocateFixed, Search } from 'lucide-react';
+import { LocateFixed } from 'lucide-react';
 import { airports } from '@/public/constants/airports';
 import { useJourney } from '@/hooks';
 import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { ExtendedFC, TJourney } from '@/lib/types';
-import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
+import { ExtendedFC, TAirPort } from '@/lib/types';
+import { Form, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import SelectInput from './select-input';
 import DatePickerInput from './datepicker-input';
+import { JourneySchema } from '@/lib/schema';
 
 const filterAirports = (query?: string) => {
   if (!query) return airports;
@@ -18,131 +19,114 @@ const filterAirports = (query?: string) => {
   );
 };
 
-const journeyFormSchema = z
-  .object({
-    to: z.string().min(1),
-    from: z.string().min(1),
-    startDate: z.date(),
-    endDate: z.date()
-  })
-  .refine((data) => data.startDate < data.endDate, {
-    message: 'Start date must be before end date',
-    path: ['startDate', 'endDate']
-  });
-
-const onSubmit = (data: TJourney) => {
-  console.log('SUCCESS', data);
-};
-
 const JourneyForm: ExtendedFC = () => {
-  const form = useForm<TJourney>({
-    resolver: zodResolver(journeyFormSchema)
+  const form = useForm<z.infer<typeof JourneySchema>>({
+    resolver: zodResolver(JourneySchema)
   });
-  const { journey, handleChange, swapAirports } = useJourney();
+  const onSubmit = (data: any) => {
+    console.log('SUCCESS', data);
+  };
+
+  const { journey, setJourney } = useJourney();
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-9"
-      >
-        <div className="flex w-full gap-6">
-          <div className="flex gap-3">
-            <FormField
-              name="from"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <SelectInput
-                      onValueChange={(e) =>
-                        handleChange({ ...journey, from: JSON.parse(e) })
-                      }
-                      placeholderIcon={<LocateFixed size={16} />}
-                      placeholderText="Where from?"
-                      valueLabel="Where from?"
-                      value={journey.from?.name!}
-                      options={filterAirports(journey.to?.code)}
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <div className="flex flex-col justify-center">
-              <Button
-                variant="secondary"
-                size="icon"
-                className="self-start"
-                onClick={(e) => {
-                  e.preventDefault();
-                  swapAirports(journey);
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+        <FormField
+          name="from"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <SelectInput
+                options={filterAirports(journey?.to?.code)}
+                placeholderIcon={<LocateFixed />}
+                placeholderText="Where from"
+                value={field.value}
+                valueLabel="Where from"
+                name="from"
+                onValueChange={(code) => {
+                  const airport = JSON.parse(code) as TAirPort;
+                  setJourney({
+                    ...journey,
+                    from: airport
+                  });
+                  field.onChange(airport);
                 }}
-              >
-                <ArrowLeftRight size={20} />
-              </Button>
-            </div>
-            <FormField
-              name="from"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <SelectInput
-                      onValueChange={(e) =>
-                        handleChange({ ...journey, to: JSON.parse(e) })
-                      }
-                      placeholderIcon={<LocateFixed size={16} />}
-                      placeholderText="Where to?"
-                      valueLabel="Where to?"
-                      value={journey.to?.name!}
-                      options={filterAirports(journey.from?.code)}
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-          </div>
-          <div className="flex gap-3">
-            <FormField
-              name="startDate"
-              control={form.control}
-              render={() => (
+              />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          name="to"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <SelectInput
+                options={filterAirports(journey?.from?.code)}
+                placeholderIcon={<LocateFixed />}
+                placeholderText="Where to"
+                value={field.value}
+                valueLabel="Where to"
+                onValueChange={(code) => {
+                  const airport = JSON.parse(code) as TAirPort;
+                  setJourney({
+                    ...journey,
+                    to: airport
+                  });
+                  field.onChange(airport);
+                }}
+                name="to"
+              />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          name="startDate"
+          control={form.control}
+          render={({ field }) => {
+            return (
+              <FormItem>
                 <DatePickerInput
-                  className="w-[170px]"
+                  value={field.value}
+                  onDateChange={(value) => {
+                    setJourney({
+                      ...journey,
+                      startDate: value!
+                    });
+                    field.onChange(value);
+                  }}
                   placeholderText="Departure"
-                  date={journey.startDate}
-                  handleDateChange={(date) =>
-                    handleChange({ ...journey, startDate: date })
-                  }
                 />
-              )}
-            />
-            <FormField
-              name="endDate"
-              control={form.control}
-              render={() => (
+                <FormMessage />
+              </FormItem>
+            );
+          }}
+        />
+        <FormField
+          name="endDate"
+          control={form.control}
+          render={({ field }) => {
+            return (
+              <FormItem>
                 <DatePickerInput
-                  className="w-[170px]"
+                  value={field.value}
+                  onDateChange={(value) => {
+                    setJourney({
+                      ...journey,
+                      endDate: value!
+                    });
+                    field.onChange(value);
+                  }}
                   placeholderText="Return"
-                  date={journey.endDate}
-                  handleDateChange={(date) =>
-                    handleChange({ ...journey, endDate: date })
-                  }
                 />
-              )}
-            />
-          </div>
-        </div>
-        <Button
-          name="submit"
-          type="submit"
-          size="xl"
-          className="h-[48px] self-end"
-          onClick={form.handleSubmit(onSubmit)}
-        >
-          <Search size={16} />
-          <div className="text-button">Search flights</div>
-        </Button>
+                <FormMessage />
+              </FormItem>
+            );
+          }}
+        />
+        <Button type="submit">Submit</Button>
       </form>
     </Form>
   );

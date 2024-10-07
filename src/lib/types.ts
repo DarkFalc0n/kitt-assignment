@@ -1,4 +1,11 @@
 import type { FC, ReactNode } from 'react';
+import {
+  AirportSchema,
+  FlightSchema,
+  ItinerarySchema,
+  JourneySchema
+} from './schema';
+import { z } from 'zod';
 
 interface DefaultFCProps {
   children: ReactNode;
@@ -15,15 +22,11 @@ interface PageProps {
 }
 export type TPage = FC<Partial<PageProps>>;
 
-export type TAirPort = {
-  name: string;
-  code: string;
-  city: string;
-  country: string;
-};
-export type TJourney = {
-  from: TAirPort;
-  to: TAirPort;
-  startDate: Date;
-  endDate: Date;
+export type TAirPort = z.infer<typeof AirportSchema>;
+export type TJourney = z.infer<typeof JourneySchema>;
+export type TFlight = z.infer<typeof FlightSchema>;
+export type TItinerary = z.infer<typeof ItinerarySchema>;
+
+export type PartiallyNullable<T> = {
+  [P in keyof T]: T[P] | null;
 };

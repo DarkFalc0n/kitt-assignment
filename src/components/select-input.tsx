@@ -6,26 +6,34 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
-import { ExtendedFC, TAirPort, TJourney } from '@/lib/types';
-import { ReactNode } from 'react';
+import { TAirPort } from '@/lib/types';
+import { getAirportFromCode } from '@/lib/utils';
+import React, { ReactNode } from 'react';
 
-const SelectInput: ExtendedFC<{
-  onValueChange: (e: string) => void;
+type SelectInputProps = {
   placeholderIcon: ReactNode;
   placeholderText: string;
   valueLabel: string;
-  value: string;
+  value: TAirPort | null;
   options: TAirPort[];
-}> = ({
-  onValueChange,
-  placeholderIcon,
-  placeholderText,
-  valueLabel,
-  value,
-  options
-}) => {
-  return (
-    <Select onValueChange={onValueChange}>
+  onValueChange: (value: string) => void;
+  name: string;
+};
+
+const SelectInput = React.forwardRef<HTMLAllCollection, SelectInputProps>(
+  (
+    {
+      placeholderIcon,
+      placeholderText,
+      valueLabel,
+      value,
+      options,
+      onValueChange,
+      name = ''
+    },
+    ref
+  ) => (
+    <Select onValueChange={onValueChange} name={name}>
       <SelectTrigger className="h-16 w-[267.5px]">
         <SelectValue
           placeholder={
@@ -41,14 +49,14 @@ const SelectInput: ExtendedFC<{
               <div className="text-left text-muted-foreground">
                 {valueLabel}
               </div>
-              <div className="truncate">{value}</div>
+              <div className="truncate">{value.name}</div>
             </div>
           )}
         </SelectValue>
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          {options.map((airport) => (
+          {options.map((airport: TAirPort) => (
             <SelectItem key={airport.code} value={JSON.stringify(airport)}>
               <div className="flex flex-col">
                 {airport.city}
@@ -60,7 +68,7 @@ const SelectInput: ExtendedFC<{
         </SelectGroup>
       </SelectContent>
     </Select>
-  );
-};
+  )
+);
 
 export default SelectInput;

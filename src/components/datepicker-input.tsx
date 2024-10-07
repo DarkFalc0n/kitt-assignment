@@ -11,32 +11,43 @@ import {
 } from '@/components/ui/popover';
 import { ExtendedFC } from '@/lib/types';
 import { SelectSingleEventHandler } from 'react-day-picker';
+import { FormControl } from './ui/form';
 
 const DatePickerInput: ExtendedFC<{
   placeholderText: string;
-  date: Date | undefined;
-  handleDateChange: SelectSingleEventHandler;
-}> = ({ date, handleDateChange, placeholderText, className }) => {
+  value: Date | null;
+  onDateChange: SelectSingleEventHandler;
+  defaultValue?: Date;
+}> = ({
+  value,
+  onDateChange,
+  placeholderText,
+  className,
+  defaultValue = new Date()
+}) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button
-          variant={'outline'}
-          className={cn(
-            'w-[280px] justify-start p-3',
-            !date && 'text-card',
-            className
-          )}
-        >
-          <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? format(date, 'PPP') : <span>{placeholderText}</span>}
-        </Button>
+        <FormControl>
+          <Button
+            variant={'outline'}
+            className={cn(
+              'w-[240px] justify-start p-3',
+              value && 'text-muted-foreground',
+              className
+            )}
+          >
+            {value ? format(value, 'PPP') : <span>{placeholderText}</span>}
+            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+          </Button>
+        </FormControl>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0">
+      <PopoverContent className="w-auto p-0" align="start">
         <Calendar
           mode="single"
-          selected={date}
-          onSelect={handleDateChange}
+          selected={defaultValue}
+          onSelect={onDateChange}
+          disabled={(date) => date < new Date()}
           initialFocus
         />
       </PopoverContent>
