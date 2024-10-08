@@ -1,4 +1,6 @@
-export const airports = [
+import { sleep } from '@/lib/utils';
+
+const airports = [
   {
     name: 'Indira Gandhi International Airport',
     code: 'DEL',
@@ -60,3 +62,9 @@ export const airports = [
     country: 'Japan'
   }
 ];
+
+// This simulates an API call to fetch airports
+export const getAirports = async () => {
+  await sleep(400);
+  return airports;
+};

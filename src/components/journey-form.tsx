@@ -1,7 +1,6 @@
 'use client';
 import { Button } from './ui/button';
 import { ArrowLeftRight, LocateFixed, Search } from 'lucide-react';
-import { airports } from '@/public/constants/airports';
 import { useJourney } from '@/hooks';
 import { z } from 'zod';
 import { ExtendedFC, TAirPort } from '@/lib/types';
@@ -12,8 +11,9 @@ import SelectInput from './select-input';
 import DatePickerInput from './datepicker-input';
 import { JourneySchema } from '@/lib/schema';
 import { useRouter } from 'next/navigation';
+import { useAirports } from '@/hooks/use-airports';
 
-const filterAirports = (query?: string) => {
+const filterAirports = (airports: TAirPort[], query?: string) => {
   if (!query) return airports;
   return airports.filter(
     (airport) => !airport.code.toLowerCase().includes(query.toLowerCase())
@@ -25,12 +25,13 @@ const JourneyForm: ExtendedFC = () => {
     resolver: zodResolver(JourneySchema)
   });
   const router = useRouter();
-
   const onSubmit = () => {
-    router.push('/flights');
+    router.push(
+      `/flights?from=${journey.from?.code}&to=${journey.to?.code}&depart=${journey.departDate?.getTime()}&return=${journey.returnDate?.getTime()}`
+    );
   };
   const { journey, setJourney, swapAirports } = useJourney();
-
+  const { airports } = useAirports();
   return (
     <Form {...form}>
       <form
@@ -46,8 +47,10 @@ const JourneyForm: ExtendedFC = () => {
               render={({ field }) => (
                 <FormItem>
                   <SelectInput
-                    options={filterAirports(journey?.to?.code)}
-                    placeholderIcon={<LocateFixed />}
+                    options={filterAirports(airports, journey?.to?.code)}
+                    placeholderIcon={
+                      <LocateFixed className="text-muted-foreground" />
+                    }
                     placeholderText="Where from"
                     value={journey.from}
                     valueLabel="Where from"
@@ -84,8 +87,10 @@ const JourneyForm: ExtendedFC = () => {
               render={({ field }) => (
                 <FormItem>
                   <SelectInput
-                    options={filterAirports(journey?.from?.code)}
-                    placeholderIcon={<LocateFixed />}
+                    options={filterAirports(airports, journey?.from?.code)}
+                    placeholderIcon={
+                      <LocateFixed className="text-muted-foreground" />
+                    }
                     placeholderText="Where to"
                     value={journey.to}
                     valueLabel="Where to"
@@ -106,17 +111,17 @@ const JourneyForm: ExtendedFC = () => {
           </div>
           <div className="flex gap-3">
             <FormField
-              name="startDate"
+              name="departDate"
               control={form.control}
               render={({ field }) => {
                 return (
                   <FormItem>
                     <DatePickerInput
-                      value={journey.startDate}
+                      value={journey.departDate}
                       onDateChange={(value) => {
                         setJourney({
                           ...journey,
-                          startDate: value!
+                          departDate: value!
                         });
                         field.onChange(value);
                       }}
@@ -128,17 +133,17 @@ const JourneyForm: ExtendedFC = () => {
               }}
             />
             <FormField
-              name="endDate"
+              name="returnDate"
               control={form.control}
               render={({ field }) => {
                 return (
                   <FormItem>
                     <DatePickerInput
-                      value={journey.endDate}
+                      value={journey.returnDate}
                       onDateChange={(value) => {
                         setJourney({
                           ...journey,
-                          endDate: value!
+                          returnDate: value!
                         });
                         field.onChange(value);
                       }}

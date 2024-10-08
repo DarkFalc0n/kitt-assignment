@@ -32,13 +32,21 @@ const DatePickerInput: ExtendedFC<{
           <Button
             variant={'outline'}
             className={cn(
-              'h-full min-w-[176px] justify-start p-3',
-              value && 'text-muted-foreground',
+              'h-16 min-w-[176px] justify-start p-3',
+              value && 'text-regular',
               className
             )}
           >
-            {value ? format(value, 'PPP') : <span>{placeholderText}</span>}
-            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+            <CalendarIcon className="h-5 w-5 text-muted-foreground opacity-50" />
+            <span className="flex flex-col justify-center">
+              {value ? (
+                format(value, 'PP')
+              ) : (
+                <span className="text-regular flex flex-col justify-center">
+                  {placeholderText}
+                </span>
+              )}
+            </span>
           </Button>
         </FormControl>
       </PopoverTrigger>

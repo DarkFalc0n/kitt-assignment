@@ -13,8 +13,8 @@ export const JourneySchema = z
   .object({
     from: AirportSchema,
     to: AirportSchema,
-    startDate: z.date(),
-    endDate: z.date()
+    departDate: z.date(),
+    returnDate: z.date()
   })
   .required();
 

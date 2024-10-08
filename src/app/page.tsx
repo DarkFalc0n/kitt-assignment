@@ -1,7 +1,9 @@
 import JourneyForm from '@/components/journey-form';
 import { Button } from '@/components/ui/button';
+import {} from '@/hooks';
+import { TPage } from '@/lib/types';
 
-export default function Home() {
+const Home: TPage = () => {
   return (
     <div className="mx-auto h-[433px] w-[1057px]">
       <div className="text-heading pb-8 pt-[106px] text-center">
@@ -15,4 +17,6 @@ export default function Home() {
       </div>
     </div>
   );
-}
+};
+
+export default Home;

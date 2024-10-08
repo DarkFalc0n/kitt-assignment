@@ -24,6 +24,18 @@ body {
   @apply font-neuemontreal text-secondary-foreground;
 }
 
+.text-large-tertiary {
+  font-size: 1.25rem;
+  font-weight: 400;
+  @apply font-neuemontreal text-tertiary-foreground;
+}
+
+.text-large-muted {
+  font-size: 1.25rem;
+  font-weight: 400;
+  @apply font-neuemontreal text-muted-foreground;
+}
+
 .text-card {
   font-size: 1rem;
   font-weight: 500;
@@ -34,6 +46,34 @@ body {
   font-size: 1rem;
   font-weight: 500;
   @apply font-neuemontreal text-background;
+}
+
+.text-small-caption {
+  font-size: small;
+  font-weight: 500;
+  @apply font-neuemontreal text-foreground;
+}
+
+.text-small {
+  font-size: small;
+  font-weight: 400;
+  @apply font-neuemontreal text-card-foreground;
+}
+
+.progress-anim {
+  animation: indeterminateAnimation 1s infinite linear;
+  transform-origin: 0% 50%;
+}
+@keyframes indeterminateAnimation {
+  0% {
+    transform: translateX(0) scaleX(0);
+  }
+  40% {
+    transform: translateX(0) scaleX(0.4);
+  }
+  100% {
+    transform: translateX(100%) scaleX(0.5);
+  }
 }
 
 @layer base {
@@ -48,10 +88,12 @@ body {
     --primary-foreground: 0 0% 98%;
     --secondary: 0 0% 96.1%;
     --secondary-foreground: 216 3% 29%;
+    --tertiary-foreground: 218 3% 49%;
     --muted: 0 0% 96.1%;
     --muted-foreground: 220 3% 79%;
     --accent: 0 0% 96.1%;
     --accent-foreground: 0 0% 9%;
+    --success: 141 84% 23%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 216 10% 91%;
@@ -64,5 +106,6 @@ body {
     --chart-5: 27 87% 67%;
     --cta: 175 100% 12%;
     --radius: 0.5rem;
+    --progress-base: 180 13% 91%;
   }
 }

@@ -1,3 +1,4 @@
+import { Terminal } from 'lucide-react';
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
@@ -31,6 +32,10 @@ const config: Config = {
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))'
         },
+        tertiary: {
+          DEFAULT: 'hsl(var(--tertiary))',
+          foreground: 'hsl(var(--tertiary-foreground))'
+        },
         muted: {
           DEFAULT: 'hsl(var(--muted))',
           foreground: 'hsl(var(--muted-foreground))'
@@ -39,12 +44,22 @@ const config: Config = {
           DEFAULT: 'hsl(var(--accent))',
           foreground: 'hsl(var(--accent-foreground))'
         },
+
+        success: {
+          DEFAULT: 'hsl(var(--success))',
+          foreground: 'hsl(var(--success-foreground))'
+        },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))'
         },
         cta: {
           DEFAULT: 'hsl(var(--cta))'
+        },
+        progress: {
+          base: 'hsl(var(--progress-base))',
+          100: 'hsla(205, 41%, 38%, 0.5)',
+          200: 'hsla(205, 41%, 38%, 1)'
         },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -61,6 +76,9 @@ const config: Config = {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)'
+      },
+      dropShadow: {
+        DEFAULT: '-1px 0px 27.5px 8px rgba(75, 75, 75, 0.05)'
       }
     }
   },

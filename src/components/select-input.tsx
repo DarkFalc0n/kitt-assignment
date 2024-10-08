@@ -8,6 +8,7 @@ import {
 } from '@/components/ui/select';
 import { TAirPort } from '@/lib/types';
 import React, { ReactNode } from 'react';
+import { Skeleton } from './ui/skeleton';
 
 type SelectInputProps = {
   placeholderIcon: ReactNode;
@@ -19,23 +20,29 @@ type SelectInputProps = {
   name: string;
 };
 
-const SelectInput = React.forwardRef<HTMLAllCollection, SelectInputProps>(
-  ({
-    placeholderIcon,
-    placeholderText,
-    valueLabel,
-    value,
-    options,
-    onValueChange,
-    name = ''
-  }) => (
+const SelectInput = React.forwardRef<HTMLButtonElement, SelectInputProps>(
+  (
+    {
+      placeholderIcon,
+      placeholderText,
+      valueLabel,
+      value,
+      options,
+      onValueChange,
+      name = ''
+    },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _ref
+  ) => (
     <Select onValueChange={onValueChange} name={name}>
-      <SelectTrigger className="h-16 w-[267.5px]">
+      <SelectTrigger className="h-16 w-[267.5px]" ref={_ref}>
         <SelectValue
           placeholder={
-            <div className="flex justify-start gap-2">
+            <div className="text-regular flex justify-start gap-2">
               {placeholderIcon}
-              {placeholderText}
+              <span className="flex flex-col justify-center">
+                {placeholderText}
+              </span>
             </div>
           }
           className="w-3"
@@ -51,17 +58,23 @@ const SelectInput = React.forwardRef<HTMLAllCollection, SelectInputProps>(
         </SelectValue>
       </SelectTrigger>
       <SelectContent>
-        <SelectGroup>
-          {options.map((airport: TAirPort) => (
-            <SelectItem key={airport.code} value={JSON.stringify(airport)}>
-              <div className="flex flex-col">
-                {airport.city}
-                <div className="text-muted-foreground">{airport.country}</div>
-                <div className="absolute right-8 top-4">{airport.code}</div>
-              </div>
-            </SelectItem>
-          ))}
-        </SelectGroup>
+        {options.length !== 0 ? (
+          <SelectGroup>
+            {options.map((airport: TAirPort) => (
+              <SelectItem key={airport.code} value={JSON.stringify(airport)}>
+                <div className="flex flex-col">
+                  {airport.city}
+                  <div className="text-muted-foreground">{airport.country}</div>
+                  <div className="absolute right-8 top-4">{airport.code}</div>
+                </div>
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        ) : (
+          Array.from({ length: 4 }, (_, index) => (
+            <Skeleton key={index} className="my-2 h-12 w-[260px]" />
+          ))
+        )}
       </SelectContent>
     </Select>
   )

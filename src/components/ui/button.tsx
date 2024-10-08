@@ -12,7 +12,7 @@ const buttonVariants = cva(
         default: 'bg-cta',
         secondary: 'rounded-md bg-card text-card',
         outline: 'border border-border',
-        ghost: 'bg-transparent hover:bg-card hover:text-card'
+        ghost: 'bg-transparent hover:bg-foreground hover:text-secondary'
       },
       size: {
         default: 'px-9 py-2.5',

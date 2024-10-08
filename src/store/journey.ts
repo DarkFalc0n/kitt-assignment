@@ -11,8 +11,8 @@ const useJourneyStore = create<JourneyStore>((set) => ({
   journey: {
     to: null,
     from: null,
-    startDate: null,
-    endDate: null
+    departDate: null,
+    returnDate: null
   },
   setJourney: (journey) =>
     set((state) => ({ journey: { ...state.journey, ...journey } })),
