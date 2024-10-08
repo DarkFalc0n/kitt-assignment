@@ -22,18 +22,18 @@ export const FlightSchema = z
   .object({
     id: z.string(),
     airline: z.string(),
+    airlineIcon: z.string().url(),
     class: z.string(),
-    from: AirportSchema,
-    to: AirportSchema,
+    classid: z.string(),
+    from: z.string().length(3),
+    to: z.string().length(3),
     departure: z.date(),
-    arrival: z.date(),
-    price: z.number()
+    arrival: z.date()
   })
   .required();
 
 export const ItinerarySchema = z
   .object({
-    journey: JourneySchema,
     outgoingFlights: z.array(FlightSchema),
     returnFlights: z.array(FlightSchema),
     price: z.number()

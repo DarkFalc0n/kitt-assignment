@@ -13,3 +13,22 @@ export const sleep = (ms: number) => {
 export const getAirportByCode = (code: string, airports: TAirPort[]) => {
   return airports.find((airport) => airport.code === code);
 };
+
+export const getFormattedTime = (date: Date) => {
+  return date.toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true
+  });
+};
+
+export const getTimeDiff = (date1: Date, date2: Date) => {
+  const diff = date1.getTime() - date2.getTime();
+  const hours = Math.floor(diff / (1000 * 60 * 60));
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  return `${hours}h ${minutes}m`;
+};
+
+export const getStops = (flights: number) => {
+  return flights > 1 ? `${flights - 1} stops` : 'No stops';
+};

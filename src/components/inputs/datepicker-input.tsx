@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/popover';
 import { ExtendedFC } from '@/lib/types';
 import { SelectSingleEventHandler } from 'react-day-picker';
-import { FormControl } from './ui/form';
+import { FormControl } from '../ui/form';
 
 const DatePickerInput: ExtendedFC<{
   placeholderText: string;

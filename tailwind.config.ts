@@ -56,6 +56,9 @@ const config: Config = {
         cta: {
           DEFAULT: 'hsl(var(--cta))'
         },
+        skeleton: {
+          DEFAULT: 'hsl(var(--skeleton))'
+        },
         progress: {
           base: 'hsl(var(--progress-base))',
           100: 'hsla(205, 41%, 38%, 0.5)',
@@ -78,7 +81,7 @@ const config: Config = {
         sm: 'calc(var(--radius) - 4px)'
       },
       dropShadow: {
-        DEFAULT: '-1px 0px 27.5px 8px rgba(75, 75, 75, 0.05)'
+        DEFAULT: '-1px 0px 27.5px rgba(75, 75, 75, 0.1)'
       }
     }
   },

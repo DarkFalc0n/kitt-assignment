@@ -1,5 +1,5 @@
 import { getAirports } from '@/public/constants/airports';
-import { useAirportsStore } from '@/store/airports';
+import { useAirportsStore } from '@/store';
 
 const useAirports = () => {
   const { airports, setAirports } = useAirportsStore();

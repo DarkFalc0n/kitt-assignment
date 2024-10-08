@@ -19,7 +19,7 @@ const RootLayout: TLayout = ({ children }) => {
   return (
     <html lang="en">
       <body
-        className={`${neueMontrealRegular.variable} treal px-[120px] antialiased`}
+        className={`${neueMontrealRegular.variable} treal overflow-x-hidden px-[120px] antialiased`}
       >
         {children}
       </body>

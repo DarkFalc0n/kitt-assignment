@@ -46,6 +46,7 @@ const JourneyDisplay: ExtendedFC = () => {
         }`}
       </div>
       <div className="my-4 h-8 w-0 border border-border"></div>
+
       <Button variant={'secondary'} size="icon" className="my-2">
         <Search size={16} className="font-weight text-cta" strokeWidth={3} />
       </Button>

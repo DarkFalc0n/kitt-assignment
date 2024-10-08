@@ -1,6 +1,9 @@
 'use client';
-import LoadingCard from '@/components/loading-card';
-import { useJourney, useAirports } from '@/hooks';
+import FlightCard from '@/components/cards/flight-card';
+import LoadingCard from '@/components/cards/loading-card';
+import FlightCardSkeleton from '@/components/skeleton/flight-card.skeleton';
+import ProgressBar from '@/components/ui/progress-bar';
+import { useJourney, useAirports, useItineraries } from '@/hooks';
 import { TJourney } from '@/lib/types';
 import { getAirportByCode } from '@/lib/utils';
 import { parseAsTimestamp, useQueryState } from 'nuqs';
@@ -14,6 +17,7 @@ const Flights = () => {
   const [returnDate] = useQueryState('return', parseAsTimestamp);
   const { setJourney } = useJourney();
   const { airports } = useAirports();
+  const { itineraries } = useItineraries();
 
   useEffect(() => {
     console.log('from', from);
@@ -31,9 +35,27 @@ const Flights = () => {
     }
   }, [airports]);
   return (
-    <div>
-      <LoadingCard loadedItems={0} />
-    </div>
+    <>
+      {itineraries.length <= 0 ? (
+        <div>
+          <ProgressBar />
+          <div className="px-[120px]">
+            <div className="flex flex-col gap-5">
+              {Array.from({ length: 4 }, (_, index) => (
+                <FlightCardSkeleton key={index} />
+              ))}
+            </div>
+          </div>
+          <div className="absolute left-1/2 top-[200px] -translate-x-1/2">
+            <LoadingCard loadedItems={0} />
+          </div>
+        </div>
+      ) : (
+        itineraries.map((journey, index) => (
+          <FlightCard key={index} {...journey} />
+        ))
+      )}
+    </>
   );
 };
 

@@ -9,7 +9,7 @@ const Home: TPage = () => {
       <div className="text-heading pb-8 pt-[106px] text-center">
         Good Afternoon, Brian
       </div>
-      <div className="flex w-full flex-col gap-6 rounded-md border border-border px-7 py-6">
+      <div className="flex w-full flex-col gap-6 rounded-md border border-border py-6">
         <Button variant="secondary" size="sm" className="self-start">
           Flights
         </Button>

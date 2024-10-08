@@ -15,7 +15,7 @@ const LoadingCard: ExtendedFC<{
   return (
     <div
       className={cn(
-        'mx-auto my-12 w-[325px] rounded-2xl border border-border drop-shadow',
+        'mx-auto my-12 w-[325px] rounded-2xl border border-border bg-background drop-shadow',
         className
       )}
     >
@@ -31,7 +31,7 @@ const LoadingCard: ExtendedFC<{
           <div
             key={index}
             className={cn(
-              `${loadedItems > index ? 'text-large-tertiary' : 'text-large-muted'}`,
+              `${loadedItems >= index ? 'text-large-tertiary' : 'text-large-muted'}`,
               'flex gap-4'
             )}
           >

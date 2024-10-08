@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/select';
 import { TAirPort } from '@/lib/types';
 import React, { ReactNode } from 'react';
-import { Skeleton } from './ui/skeleton';
+import { Skeleton } from '../ui/skeleton';
 
 type SelectInputProps = {
   placeholderIcon: ReactNode;
@@ -49,7 +49,7 @@ const SelectInput = React.forwardRef<HTMLButtonElement, SelectInputProps>(
         >
           {value && (
             <div className="flex flex-col">
-              <div className="text-left text-muted-foreground">
+              <div className="text-left text-tertiary-foreground">
                 {valueLabel}
               </div>
               <div className="truncate">{value.name}</div>

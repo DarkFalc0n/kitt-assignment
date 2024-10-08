@@ -24,6 +24,12 @@ body {
   @apply font-neuemontreal text-secondary-foreground;
 }
 
+.text-large {
+  font-size: 1.25rem;
+  font-weight: 400;
+  @apply font-neuemontreal text-foreground;
+}
+
 .text-large-tertiary {
   font-size: 1.25rem;
   font-weight: 400;
@@ -55,9 +61,33 @@ body {
 }
 
 .text-small {
-  font-size: small;
+  font-size: 0.875rem;
   font-weight: 400;
   @apply font-neuemontreal text-card-foreground;
+}
+
+.text-small-secondary {
+  font-size: 0.875rem;
+  font-weight: 400;
+  @apply font-neuemontreal text-secondary-foreground;
+}
+
+.text-small-tertiary {
+  font-size: 0.875rem;
+  font-weight: 400;
+  @apply font-neuemontreal text-tertiary-foreground;
+}
+
+.text-small-muted {
+  font-size: 0.875rem;
+  font-weight: 400;
+  @apply font-neuemontreal text-muted-foreground;
+}
+
+.text-xlarge {
+  font-size: 1.25rem;
+  font-weight: 400;
+  @apply font-neuemontreal text-foreground;
 }
 
 .progress-anim {
@@ -107,5 +137,6 @@ body {
     --cta: 175 100% 12%;
     --radius: 0.5rem;
     --progress-base: 180 13% 91%;
+    --skeleton: 0 0 93%;
   }
 }
