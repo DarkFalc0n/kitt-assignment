@@ -1,5 +1,5 @@
 'use client';
-import { ExtendedFC, TItinerary } from '@/lib/types';
+import { ExtendedFC, TAirPort, TItinerary } from '@/lib/types';
 import { cn, getAirportByCode, getTimeDiff } from '@/lib/utils';
 import { ArrowLeft, Circle, Clock } from 'lucide-react';
 import { Button } from '../ui/button';
@@ -7,10 +7,13 @@ import { useAirports, useAppState } from '@/hooks';
 import { ReactNode } from 'react';
 import Image from 'next/image';
 
-const timelineList = (flightDrawerContent: TItinerary) => {
+const timelineList = (
+  flightDrawerContent: TItinerary,
+  airports: TAirPort[]
+) => {
   const result = [] as ReactNode[];
   const { outgoingFlights } = flightDrawerContent;
-  const { airports } = useAirports();
+
   for (let i = 0; i < outgoingFlights.length; i++) {
     const flight = outgoingFlights[i];
     result.push(
@@ -104,6 +107,7 @@ const timelineList = (flightDrawerContent: TItinerary) => {
 
 const FlightDrawerContent: ExtendedFC = ({ className }) => {
   const { flightDrawerContent } = useAppState();
+  const { airports } = useAirports();
   return (
     <div className={cn('flex flex-col gap-6 px-7 py-7', className)}>
       <Button variant="secondary" size="icon" className="self-start">
@@ -112,7 +116,7 @@ const FlightDrawerContent: ExtendedFC = ({ className }) => {
       <div className="text-xlarge-heavy py-6">Flight Details</div>
       <div className="h-0 w-[600px] border border-border" />
       <div className="flex flex-col gap-2">
-        {timelineList(flightDrawerContent!)}
+        {timelineList(flightDrawerContent!, airports)}
       </div>
     </div>
   );

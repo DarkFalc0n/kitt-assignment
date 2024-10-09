@@ -12,12 +12,8 @@ const FlightCard: ExtendedFC<TItinerary> = ({
   outgoingFlights,
   returnFlights
 }) => {
-  const {
-    isFlightDrawerOpen,
-    toggleFlightDrawer,
-    flightDrawerContent,
-    setFlightDrawerContent
-  } = useAppState();
+  const { isFlightDrawerOpen, toggleFlightDrawer, setFlightDrawerContent } =
+    useAppState();
   return (
     <>
       <Drawer
