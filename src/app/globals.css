@@ -63,7 +63,25 @@ body {
 .text-small {
   font-size: 0.875rem;
   font-weight: 400;
+  @apply font-neuemontreal text-foreground;
+}
+
+.text-small-heavy {
+  font-size: 0.875rem;
+  font-weight: 500;
+  @apply font-neuemontreal text-foreground;
+}
+
+.text-small-card {
+  font-size: 0.875rem;
+  font-weight: 500;
   @apply font-neuemontreal text-card-foreground;
+}
+
+.text-xsmall-tertiary {
+  font-size: 0.75rem;
+  font-weight: 400;
+  @apply font-neuemontreal text-tertiary-foreground;
 }
 
 .text-small-secondary {
@@ -90,9 +108,28 @@ body {
   @apply font-neuemontreal text-foreground;
 }
 
+.text-xlarge-heavy {
+  font-size: 1.25rem;
+  font-weight: 500;
+  @apply font-neuemontreal text-foreground;
+}
+
 .progress-anim {
   animation: indeterminateAnimation 1s infinite linear;
   transform-origin: 0% 50%;
+}
+
+.dashed-left-border {
+  background-image: repeating-linear-gradient(
+    180deg,
+    #787b80,
+    #787b80 4px,
+    transparent 4px,
+    transparent 8px
+  );
+  background-position: left top;
+  background-repeat: repeat-y;
+  background-size: 1px 100%;
 }
 @keyframes indeterminateAnimation {
   0% {

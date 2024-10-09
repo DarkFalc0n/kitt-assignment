@@ -1,6 +1,5 @@
 import JourneyForm from '@/components/journey-form';
 import { Button } from '@/components/ui/button';
-import {} from '@/hooks';
 import { TPage } from '@/lib/types';
 
 const Home: TPage = () => {

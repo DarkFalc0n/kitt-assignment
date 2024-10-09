@@ -6,7 +6,7 @@ import { Suspense } from 'react';
 
 const FightsLayout: TLayout = ({ children }) => {
   return (
-    <div className="px-[72px]">
+    <div className="mx-[72px]">
       <Suspense>
         <header className="flex justify-between px-[120px] py-7">
           <JourneyDisplay />

@@ -18,13 +18,7 @@ const DatePickerInput: ExtendedFC<{
   value: Date | null;
   onDateChange: SelectSingleEventHandler;
   defaultValue?: Date;
-}> = ({
-  value,
-  onDateChange,
-  placeholderText,
-  className,
-  defaultValue = new Date()
-}) => {
+}> = ({ value, onDateChange, placeholderText, className }) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -53,9 +47,8 @@ const DatePickerInput: ExtendedFC<{
       <PopoverContent className="w-auto p-0" align="start">
         <Calendar
           mode="single"
-          selected={defaultValue}
           onSelect={onDateChange}
-          disabled={(date) => date < new Date()}
+          disabled={(date) => date < new Date(Date.now() - 86400000)}
           initialFocus
         />
       </PopoverContent>

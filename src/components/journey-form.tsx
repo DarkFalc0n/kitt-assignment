@@ -20,12 +20,16 @@ const filterAirports = (airports: TAirPort[], query?: string) => {
   );
 };
 
-const JourneyForm: ExtendedFC = () => {
+const JourneyForm: ExtendedFC<{ onFormSubmit?: () => void }> = ({
+  onFormSubmit
+}) => {
   const form = useForm<z.infer<typeof JourneySchema>>({
     resolver: zodResolver(JourneySchema)
   });
   const router = useRouter();
   const onSubmit = () => {
+    console.log('journey submitted');
+    onFormSubmit?.();
     router.push(
       `/flights?from=${journey.from?.code}&to=${journey.to?.code}&depart=${journey.departDate?.getTime()}&return=${journey.returnDate?.getTime()}`
     );

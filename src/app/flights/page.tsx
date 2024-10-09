@@ -3,12 +3,12 @@ import FlightCard from '@/components/cards/flight-card';
 import LoadingCard from '@/components/cards/loading-card';
 import FlightCardSkeleton from '@/components/skeleton/flight-card.skeleton';
 import ProgressBar from '@/components/ui/progress-bar';
-import { useJourney, useAirports, useItineraries } from '@/hooks';
+import { useJourney, useAirports, useItineraries, useAppState } from '@/hooks';
 import { TJourney } from '@/lib/types';
 import { getAirportByCode } from '@/lib/utils';
 import { flightLoadingCardItems } from '@/public/constants/flights';
 import { parseAsTimestamp, useQueryState } from 'nuqs';
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 
 const Flights = () => {
   //Query state is used to facilitate sharing of links with the journey details
@@ -19,6 +19,7 @@ const Flights = () => {
   const { setJourney } = useJourney();
   const { airports } = useAirports();
   const { itineraries, progress } = useItineraries();
+  const { isSearchDrawerOpen, isFlightDrawerOpen } = useAppState();
 
   useEffect(() => {
     console.log('from', from);
@@ -37,10 +38,13 @@ const Flights = () => {
   }, [airports]);
   return (
     <>
+      {(isFlightDrawerOpen || isSearchDrawerOpen) && (
+        <div className="absolute left-0 top-0 -z-10 h-screen w-screen bg-card" />
+      )}
       {itineraries.length <= 0 ? (
         <div>
           <ProgressBar />
-          <div className="px-[120px]">
+          <div className="mx-[120px]">
             <div className="flex flex-col gap-5">
               {Array.from({ length: 4 }, (_, index) => (
                 <FlightCardSkeleton key={index} />
@@ -48,13 +52,17 @@ const Flights = () => {
             </div>
           </div>
           <div className="absolute left-1/2 top-[200px] -translate-x-1/2">
-            <LoadingCard items={flightLoadingCardItems} progress={progress} />
+            <Suspense>
+              <LoadingCard items={flightLoadingCardItems} progress={progress} />
+            </Suspense>
           </div>
         </div>
       ) : (
-        itineraries.map((journey, index) => (
-          <FlightCard key={index} {...journey} />
-        ))
+        <div className="flex flex-col gap-5">
+          {itineraries.map((journey, index) => (
+            <FlightCard key={index} {...journey} />
+          ))}
+        </div>
       )}
     </>
   );

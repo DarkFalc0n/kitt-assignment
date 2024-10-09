@@ -1,9 +1,11 @@
 'use client';
-import { useJourney } from '@/hooks';
+import { useAppState, useJourney } from '@/hooks';
 import { ExtendedFC, TAirPort } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { Search } from 'lucide-react';
 import { Button } from './ui/button';
+import { Drawer, DrawerContent } from './ui/drawer';
+import JourneyForm from './journey-form';
 
 const AirportDisplay: ExtendedFC<{
   airport: TAirPort | null;
@@ -22,6 +24,7 @@ const AirportDisplay: ExtendedFC<{
 };
 const JourneyDisplay: ExtendedFC = () => {
   const { journey } = useJourney();
+  const { isSearchDrawerOpen, toggleSearchDrawer } = useAppState();
   return (
     <div className="h-50 flex justify-start gap-4 rounded-full border border-border pl-6 pr-2">
       <AirportDisplay airport={journey.from} />
@@ -46,8 +49,25 @@ const JourneyDisplay: ExtendedFC = () => {
         }`}
       </div>
       <div className="my-4 h-8 w-0 border border-border"></div>
+      <Drawer
+        direction="top"
+        open={isSearchDrawerOpen}
+        onClose={toggleSearchDrawer}
+        shouldScaleBackground={false}
+      >
+        <DrawerContent className="inset-x-0 top-0 max-h-[233px]">
+          <div className="mx-auto w-[1057px] self-start px-7 pb-6 pt-16">
+            <JourneyForm onFormSubmit={toggleSearchDrawer} />
+          </div>
+        </DrawerContent>
+      </Drawer>
 
-      <Button variant={'secondary'} size="icon" className="my-2">
+      <Button
+        variant={'secondary'}
+        size="icon"
+        className="my-2"
+        onClick={toggleSearchDrawer}
+      >
         <Search size={16} className="font-weight text-cta" strokeWidth={3} />
       </Button>
     </div>
