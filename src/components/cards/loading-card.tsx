@@ -6,8 +6,8 @@ import { flightLoadingCardItems } from '@/public/constants/flights';
 
 const LoadingCard: ExtendedFC<{
   items?: string[];
-  loadedItems: number;
-}> = ({ items = flightLoadingCardItems, loadedItems = 0, className }) => {
+  progress: number;
+}> = ({ items = flightLoadingCardItems, progress, className }) => {
   const loadingCardBannerURL =
     'https://s3-alpha-sig.figma.com/img/df34/ff5d/de2e13b8b13ef90316e36338415b882b?Expires=1729468800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=lbNdpXJEZpCLF~KVtFsGwnVHJMN7YiA8FtyMHNNmzvHa2N6JDdlV6rd20GV-MC3Sql~-zWshyEtecc6osLzrfiiWt89BNbycWeUx7kNLlF-T8cbbTG9AZ15keg6lMVcWkdugHKWUqtMxNklBbI561V0p0AVz1LzeLMwgEHiEB29C8s-pM-U6vNcQhRS-ipgLdwuEEioBwsJ8KXyPEY3NmZky6bwDvV6rQPDOQp1qxvQABzPKL9PHaz2xNrzEmMnBkwOgs8Tkp-WpzUalI3Rg58O13-OfVdLMMKeWKAt0iEUXbONUbgNQOUcT0qPQ~oXeQw5airpjlGDqNmKOOlRShA__';
   const spinnerURL =
@@ -31,18 +31,18 @@ const LoadingCard: ExtendedFC<{
           <div
             key={index}
             className={cn(
-              `${loadedItems >= index ? 'text-large-tertiary' : 'text-large-muted'}`,
+              `${progress >= index ? 'text-large-tertiary' : 'text-large-muted'}`,
               'flex gap-4'
             )}
           >
             <div className="flex flex-col justify-center">
-              {index < loadedItems && (
+              {progress > index && (
                 <CircleCheck size={18} className="text-success" />
               )}
-              {index === loadedItems && (
+              {progress === index && (
                 <Image src={spinnerURL} width={18} height={18} alt="spinner" />
               )}
-              {index > loadedItems && <div className="h-4 w-4" />}
+              {progress < index && <div className="h-4 w-4" />}
             </div>
             <div className="flex h-full flex-col justify-center">{item}</div>
           </div>

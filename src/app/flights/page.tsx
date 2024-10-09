@@ -6,6 +6,7 @@ import ProgressBar from '@/components/ui/progress-bar';
 import { useJourney, useAirports, useItineraries } from '@/hooks';
 import { TJourney } from '@/lib/types';
 import { getAirportByCode } from '@/lib/utils';
+import { flightLoadingCardItems } from '@/public/constants/flights';
 import { parseAsTimestamp, useQueryState } from 'nuqs';
 import { useEffect } from 'react';
 
@@ -17,7 +18,7 @@ const Flights = () => {
   const [returnDate] = useQueryState('return', parseAsTimestamp);
   const { setJourney } = useJourney();
   const { airports } = useAirports();
-  const { itineraries } = useItineraries();
+  const { itineraries, progress } = useItineraries();
 
   useEffect(() => {
     console.log('from', from);
@@ -47,7 +48,7 @@ const Flights = () => {
             </div>
           </div>
           <div className="absolute left-1/2 top-[200px] -translate-x-1/2">
-            <LoadingCard loadedItems={0} />
+            <LoadingCard items={flightLoadingCardItems} progress={progress} />
           </div>
         </div>
       ) : (

@@ -45,6 +45,6 @@ export const twoWayJourneys: TItinerary[] = [
 ];
 
 export const getItineraries = async () => {
-  await sleep(1000);
+  await sleep(1800);
   return twoWayJourneys;
 };
