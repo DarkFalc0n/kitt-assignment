@@ -13,7 +13,6 @@ const useItinerariesStore = create<ItinerariesStore>((set) => ({
   progress: 0,
   setItineraries: (itineraries) => set(() => ({ itineraries })),
   setProgress: (progress) => {
-    console.log('progress set to', progress);
     set(() => ({ progress }));
   }
 }));

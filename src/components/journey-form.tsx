@@ -28,7 +28,6 @@ const JourneyForm: ExtendedFC<{ onFormSubmit?: () => void }> = ({
   });
   const router = useRouter();
   const onSubmit = () => {
-    console.log('journey submitted');
     onFormSubmit?.();
     router.push(
       `/flights?from=${journey.from?.code}&to=${journey.to?.code}&depart=${journey.departDate?.getTime()}&return=${journey.returnDate?.getTime()}`

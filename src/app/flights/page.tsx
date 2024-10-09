@@ -22,11 +22,6 @@ const Flights = () => {
   const { isSearchDrawerOpen, isFlightDrawerOpen } = useAppState();
 
   useEffect(() => {
-    console.log('from', from);
-    console.log('to', to);
-    console.log('departDate', departDate);
-    console.log('returnDate', returnDate);
-    console.log('airports', airports);
     if (from && to && departDate && returnDate) {
       setJourney({
         from: getAirportByCode(from, airports)!,
